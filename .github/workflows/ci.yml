@@ -1,0 +1,27 @@
+name: CI Workflow  # 工作流的名稱
+
+on:  # 觸發條件
+  push:
+    branches:
+      - main  # 當推送到 main 分支時觸發
+  pull_request:
+    branches:
+      - main  # 當有拉取請求時也會觸發
+
+jobs:  # 定義要執行的工作
+  build:
+    runs-on: ubuntu-latest  # 運行的作業系統
+    steps:
+      - name: Checkout code  # 檢出代碼
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js  # 設定 Node.js 環境
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # 設定 Node.js 版本
+
+      - name: Install dependencies  # 安裝依賴
+        run: npm install
+
+      - name: Run tests  # 執行測試
+        run: npm test
